@@ -70,6 +70,17 @@ jQuery.fn.mathquill = function(cmd, latex) {
           cursor.hide().parent.blur();
         }
       });
+  case 'cursor':
+    if (arguments.length > 1)
+      return this.each(function() {
+        var blockId = $(this).attr(mqBlockId),
+          block = blockId && MathElement[blockId],
+          cursor = block && block.cursor;
+
+        if (cursor) {
+          latex(cursor);
+        }
+      });
   default:
     var textbox = cmd === 'textbox',
       editable = textbox || cmd === 'editable',

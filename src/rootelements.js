@@ -127,10 +127,10 @@ function createRoot(jQ, root, textbox, editable) {
   var textareaManager = manageTextarea(textarea, {
     container: jQ,
     key: function(key, evt) {
-      cursor.parent.bubble('onKey', key, evt);
+      //cursor.parent.bubble('onKey', key, evt);
     },
     text: function(text) {
-      cursor.parent.bubble('onText', text);
+      //cursor.parent.bubble('onText', text);
     },
     cut: function(e) {
       if (cursor.selection) {
