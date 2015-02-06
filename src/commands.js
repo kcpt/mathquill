@@ -297,6 +297,56 @@ LatexCmds.nthroot = P(SquareRoot, function(_, _super) {
   };
 });
 
+var HTMLBlob =
+LatexCmds.blob = P(MathCommand, function(_, _super) {
+  _.init = function(html) {
+    _super.init.call(this, '\\blob');
+  };
+
+  _.parser = function() {
+    var string = Parser.string;
+    var succeed = Parser.succeed;
+    var any = Parser.any;
+    var fail = Parser.fail;
+    var skip = Parser.skip;
+    var regex = Parser.regex;
+
+    var joinStr = function(chunks) { return chunks.join(''); };
+
+    var cmd = this;
+
+    return string('\\endBlob').or(string("\\\\")).or(any).then(function(chunk) {
+      switch (chunk) {
+        case "\\endBlob":
+        return fail();
+      case "\\\\": // Quoted backslash
+        return succeed("\\");
+      default:
+        return succeed(chunk);
+      }
+    })
+    .many().map(joinStr)
+      .skip(string('\\endBlob')).then(function(html) {
+      cmd.htmlBlob = html;
+      return succeed(cmd);
+    });
+  };
+
+  _.html = function() {
+    return '<span class="blob" ' +
+      mqCmdId + '= "' +this.id + '" ' +
+      '>'+this.htmlBlob+'</span>';
+  };
+
+  _.latex = function() {
+    var quoted = this.htmlBlob.replace(/\\/g, "\\\\");
+    return '\\blob' +
+      quoted +
+      '\\endBlob';
+  };
+
+});
+
 // Round/Square/Curly/Angle Brackets (aka Parens/Brackets/Braces)
 var Bracket = P(MathCommand, function(_, _super) {
   _.init = function(open, close, ctrlSeq, end) {
