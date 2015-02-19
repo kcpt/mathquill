@@ -21,7 +21,14 @@ function createRoot(jQ, root, textbox, editable) {
   root.renderLatex(contents.text());
 
   //textarea stuff
-  var textareaSpan = root.textarea = $('<span class="textarea"><textarea></textarea></span>'),
+
+  // This is how mozilla recommends testing for a mobile User Agent
+  // https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent
+  var isMobile = /Mobi/.test(navigator.userAgent);
+
+  var textareaSpan = root.textarea = isMobile ?
+        $('<span class="textarea"><span tabindex="0"></span></span>')
+    : $('<span class="textarea"><textarea></textarea></span>'),
     textarea = textareaSpan.children();
 
   /******
