@@ -3,8 +3,23 @@
   .font-face();
 }
 
-@basic:;
-.font-face() when not (@basic) {
+@fontType:;
+
+.font-face() when (@fontType = 'none') {
+  src:
+    local("Symbola Regular"),
+    local("Symbola")
+  ;
+}
+.font-face() when (@fontType = 'basic') {
+  src: url(font/Symbola-basic.eot);
+  src:
+    local("Symbola Regular"),
+    local("Symbola"),
+    url(font/Symbola-basic.ttf) format("truetype")
+  ;
+}
+.font-face() when (default()) {
   src: url(font/Symbola.eot);
   src:
     local("Symbola Regular"),
@@ -14,12 +29,3 @@
     url(font/Symbola.svg#Symbola) format("svg")
   ;
 }
-.font-face() when (@basic) {
-  src: url(font/Symbola-basic.eot);
-  src:
-    local("Symbola Regular"),
-    local("Symbola"),
-    url(font/Symbola-basic.ttf) format("truetype")
-  ;
-}
-

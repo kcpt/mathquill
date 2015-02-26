@@ -140,7 +140,7 @@ var saneKeyboardEvents = (function() {
     }
 
     function handleKey() {
-      handlers.keystroke(stringify(keydown), keydown);
+      //handlers.keystroke(stringify(keydown), keydown);
     }
 
     // -*- event handlers -*- //
@@ -219,7 +219,7 @@ var saneKeyboardEvents = (function() {
     function pastedText() {
       var text = textarea.val();
       textarea.val('');
-      if (text) handlers.paste(text);
+      //if (text) handlers.paste(text);
     }
 
     // -*- attach event handlers -*- //

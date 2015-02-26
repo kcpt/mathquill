@@ -62,6 +62,11 @@ UGLIFY_OPTS ?= --mangle --compress hoist_vars=true
 LESSC ?= ./node_modules/.bin/lessc
 LESS_OPTS ?=
 
+# To build mathquill without the symbola font, execute: `make font=none'
+ifeq ($(font),none)
+LESS_OPTS += --modify-var="fontType='none'"
+endif
+
 # Empty target files whose Last Modified timestamps are used to record when
 # something like `npm install` last happened (which, for example, would then be
 # compared with its dependency, package.json, so if package.json has been
@@ -107,7 +112,7 @@ $(BUILD_CSS): $(CSS_SOURCES) $(NODE_MODULES_INSTALLED) $(BUILD_DIR_EXISTS)
 	$(LESSC) $(LESS_OPTS) $(CSS_MAIN) > $@
 
 $(BASIC_CSS): $(CSS_SOURCES) $(NODE_MODULES_INSTALLED) $(BUILD_DIR_EXISTS)
-	$(LESSC) --modify-var="basic=true" $(LESS_OPTS) $(CSS_MAIN) > $@
+	$(LESSC) --modify-var="fontType='basic'" $(LESS_OPTS) $(CSS_MAIN) > $@
 
 $(NODE_MODULES_INSTALLED): package.json
 	npm install
