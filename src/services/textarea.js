@@ -75,6 +75,7 @@ Controller.open(function(_) {
       if (cursor.selection) {
         setTimeout(function() {
           ctrlr.notify('edit'); // deletes selection if present
+          ctrlr.notify('cut');
           cursor.parent.bubble('reflow');
         });
       }
