@@ -224,8 +224,8 @@ var saneKeyboardEvents = (function() {
 
     // -*- attach event handlers -*- //
     target.bind({
-      keydown: onKeydown,
-      keypress: onKeypress,
+//      keydown: onKeydown,
+//      keypress: onKeypress,
       focusout: onBlur,
       paste: onPaste
     });
